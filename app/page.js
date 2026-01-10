@@ -1,11 +1,16 @@
 'use client'
-import ElectricBorder from '@/components/ElectricBorder';
 import { GridScan } from '@/components/GridScan';
 import Shuffle from '@/components/Shuffle';
 import StaggeredMenu from '@/components/StaggeredMenu';
 import { pressStart2P } from '@/lib/fonts';
 import Image from 'next/image';
-import DecayCard from '@/components/DecayCard';
+// import DecayCard from '@/components/DecayCard';
+
+import dynamic from "next/dynamic"
+const DecayCard = dynamic(
+  () => import("@/components/DecayCard"),
+  { ssr: false }
+)
 
 
 const menuItems = [
@@ -51,7 +56,7 @@ export default function Home() {
           openMenuButtonColor="#000000"
           changeMenuColorOnOpen={true}
           colors={['#FFFFE0', '#FFF800']}
-          logoUrl="/path-to-your-logo.svg"
+          logoUrl="/images/star.svg"
           accentColor="#FFF800"
           onMenuOpen={() => console.log('Menu opened')}
           onMenuClose={() => console.log('Menu closed')}
