@@ -8,6 +8,7 @@ import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import FuzzyText from '@/components/FuzzyText';
 
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -20,17 +21,18 @@ const menuItems = [
 ];
 
 const socialItems = [
-  { label: 'Instagram', link: 'https://instagram.com' },
+  { label: 'Instagram', link: 'https://www.instagram.com/avishkar_.26' },
   { label: 'Website', link: 'https://musaliarcollege.com' },
 ];
 
-const eventLabels = ["MUSALIAR COLLAGE", "FEB 5, 6, 7", "TECH FEST"];
+const eventLabels = ["MUSALIAR COLLAGE", "PATHANAMTHITTA", "FEB 5, 6, 7"];
 
 export default function Home() {
   const containerRef = useRef(null);
   const imagesRef = useRef([]);
   const starsRef = useRef([]);
   const ribbonsRef = useRef([]);
+  const fuzzyTextRef = useRef(null);
 
   useGSAP(() => {
     const images = imagesRef.current;
@@ -47,6 +49,12 @@ export default function Home() {
           scrub: true,
         }
       });
+    });
+
+    // Set FuzzyText initial state
+    gsap.set(fuzzyTextRef.current, {
+      opacity: 0,
+      scale: 0.8
     });
 
     const tl = gsap.timeline({
@@ -116,6 +124,15 @@ export default function Home() {
         }, ">-0.3");
       }
     });
+
+    // Animate FuzzyText after the third image slides in
+    tl.to(fuzzyTextRef.current, {
+      opacity: 1,
+      scale: 1,
+      duration: 1,
+      ease: "power2.out"
+    }, ">-0.5");
+
   }, { scope: containerRef });
 
   return (
@@ -248,7 +265,7 @@ export default function Home() {
             ref={el => (ribbonsRef.current[i] = el)}
             className={`
               absolute
-              ${i === 1 ? 'h-[200vh] md:h-[250vh] w-10 right-0 bottom-auto bg-[#04F24E]' : 'w-[300vw] md:w-[350vh] h-10 bottom-0 bg-[#FED700]'}
+              ${i === 1 ? 'h-[170vh] md:h-[300vh] w-10 right-0 bottom-auto bg-[#04F24E]' : 'w-[300vw] md:w-[350vh] h-10 bottom-0 bg-[#FED700]'}
               flex items-center justify-center
               z-20 shadow-2xl
             `}
@@ -277,6 +294,20 @@ export default function Home() {
               </div>
             </div>
           ))}
+          <div ref={fuzzyTextRef} style={{ zIndex: 30 }}>
+            <FuzzyText
+              className={`${pressStart2P.className}`}
+              baseIntensity={0.2}
+              hoverIntensity={0.5}
+              enableHover={false}
+              color='#FED700'
+              fps={45}
+              glitchMode={true}
+              fontSize='clamp(1.5rem, 3vw, 8rem)'
+            >
+              Stay Tuned
+            </FuzzyText>
+          </div>
         </div>
       </div>
 
