@@ -6,11 +6,11 @@ import { Vortex } from '@/components/ui/vortex'
 import React from 'react'
 
 const sliderItems = [
-    { imageUrl: "images/proShow/zeropause.png", data: { id: 1 } },
-    { imageUrl: "images/proshow/zeropause2.jpg", data: { id: 2 } },
-    { imageUrl: "images/proShow/zeropause.png", data: { id: 3 } },
-    { imageUrl: "images/proShow/zeropause.png", data: { id: 4 } },
-    { imageUrl: "images/proshow/zeropause2.jpg", data: { id: 5 } },
+    { imageUrl: "images/proShow/zeropause3.png", data: { id: 1 } },
+    { imageUrl: "images/proshow/zeropause4.png", data: { id: 2 } },
+    { imageUrl: "images/proShow/zeropause5.png", data: { id: 3 } },
+    { imageUrl: "images/proShow/zeropause6.png", data: { id: 4 } },
+    { imageUrl: "images/proshow/zeropause7.png", data: { id: 5 } },
 ];
 
 const Page = () => {
