@@ -15,34 +15,39 @@ const ScrollFilterEffect = () => {
     const contentRefs = useRef([]);
 
     useEffect(() => {
-        // Initialize Lenis smooth scrolling
-        const lenis = new Lenis({
-            lerp: 0.1,
-            smoothWheel: true
-        });
+    // Initialize Lenis smooth scrolling
+    const lenis = new Lenis({
+        lerp: 0.1,
+        smoothWheel: true
+    });
 
-        lenis.on('scroll', () => ScrollTrigger.update());
+    lenis.on('scroll', () => ScrollTrigger.update());
 
-        const scrollFn = (time) => {
-            lenis.raf(time);
-            requestAnimationFrame(scrollFn);
-        };
+    const scrollFn = (time) => {
+        lenis.raf(time);
         requestAnimationFrame(scrollFn);
+    };
+    requestAnimationFrame(scrollFn);
 
+    // Add a small timeout to ensure DOM is fully rendered
+    const timeoutId = setTimeout(() => {
         // Initialize each content item
         contentRefs.current.forEach(element => {
             if (element) {
                 initItem(element);
             }
         });
+    }, 100); // 100ms delay
 
-        return () => {
-            lenis.destroy();
-            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-        };
-    }, []);
+    return () => {
+        clearTimeout(timeoutId);
+        lenis.destroy();
+        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+}, []);
 
     const initItem = (domEl) => {
+      
         const titleWrap = domEl.querySelector('.title-wrap');
         const titleUp = titleWrap.querySelector('.title--up');
         const titleDown = titleWrap.querySelector('.title--down');

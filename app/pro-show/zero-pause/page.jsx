@@ -329,7 +329,7 @@ export default function ScrollGSAPComponent() {
         '/images/proshow/zeropause/l2 (2).webp',
       ],
       title: 'Musaliar',
-      subtitle: 'collage',
+      subtitle: 'college',
       colorClass: 'text-[#7ABECD]',
     },
     {
