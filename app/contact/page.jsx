@@ -3,13 +3,12 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollSmoother } from 'gsap/ScrollSmoother';
 import { Flip } from 'gsap/Flip';
 import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger, ScrollSmoother, Flip, ScrambleTextPlugin);
+  gsap.registerPlugin(ScrollTrigger, Flip, ScrambleTextPlugin);
 }
 
 export default function ContactAnimation() {
@@ -17,21 +16,18 @@ export default function ContactAnimation() {
   const contentRef = useRef(null);
 
   useEffect(() => {
-    // ScrollSmoother setup
-    const smoother = ScrollSmoother.create({
-      smooth: 1.5,
-      effects: true,
-      normalizeScroll: true,
-      smoothTouch: 0.1,
-    });
+    // Small delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      const textElements = document.querySelectorAll('.el');
+      const logoEl = logoRef.current?.querySelector('span');
 
-    const textElements = document.querySelectorAll('.el');
-    const logoEl = logoRef.current?.querySelector('span');
+      if (!logoEl) {
+        console.warn('Logo element not found');
+        return;
+      }
 
-    if (!logoEl) return;
-
-    // Cache original text
-    const logoText = logoEl.textContent;
+      // Cache original text
+      const logoText = logoEl.textContent;
 
     // Store original text content
     textElements.forEach((el) => {
@@ -166,10 +162,13 @@ export default function ContactAnimation() {
 
     // Cleanup
     return () => {
+      clearTimeout(timer);
       window.removeEventListener('resize', handleResize);
-      smoother?.kill();
       ScrollTrigger.getAll().forEach((st) => st.kill());
     };
+    }, 100); // Small delay to ensure DOM is ready
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (

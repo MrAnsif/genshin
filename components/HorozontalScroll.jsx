@@ -242,6 +242,19 @@ function EmergingImage({ url, className, onMount }) {
                 { threshold: 0.1 }
             );
             observer.observe(containerRef.current);
+            
+            // Check if element is already intersecting on mount
+            const rect = containerRef.current.getBoundingClientRect();
+            const isVisible = (
+                rect.top < window.innerHeight &&
+                rect.bottom > 0 &&
+                rect.left < window.innerWidth &&
+                rect.right > 0
+            );
+            if (isVisible) {
+                setIsIntersecting(true);
+            }
+            
             return () => observer.disconnect();
         }
     }, []);

@@ -33,7 +33,7 @@ const menuItems = [
   { label: "Autoshow", ariaLabel: "View our AutoShow", link: "/auto-show" },
   { label: "Proshow 1", ariaLabel: "View our Expo", link: "/pro-show/g-live" },
   { label: "Proshow 2", ariaLabel: "View our Expo", link: "/pro-show/zero-pause" },
-  { label: "About", ariaLabel: "Learn about us", link: "/about" },
+  // { label: "About", ariaLabel: "Learn about us", link: "/about" },
   { label: "Contact", ariaLabel: "Get in touch", link: "/contact" },
 ];
 
@@ -83,9 +83,9 @@ export default function RootLayout({ children }) {
               <AuthUserButtonWrapper />
             </div>
           </div>
-          {/* <LenisProvider> */}
+          <LenisProvider>
             {children}
-          {/* </LenisProvider> */}
+          </LenisProvider>
         </body>
       </html>
     </ClerkProvider>
